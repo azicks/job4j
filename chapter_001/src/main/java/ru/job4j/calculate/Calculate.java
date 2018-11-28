@@ -5,8 +5,7 @@ package ru.job4j.calculate;
 * @author Dmitriy Kozulin
 * @since 28.11.2016
 */
-public class Calculate
-{
+public class Calculate {
 	/**
 	* Метод main
 	* @param args console input arguments
