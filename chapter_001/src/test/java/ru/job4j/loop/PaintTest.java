@@ -13,7 +13,7 @@ public class PaintTest {
     public void whenPyramidHeight3() {
         Paint paint = new Paint();
         String rst = paint.pyramid(3);
-        System.out.println(rst);
+        //System.out.println(rst);
         assertThat(rst,
                 is(new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                         .add("  ^  ")
@@ -28,7 +28,7 @@ public class PaintTest {
     public void whenPyramidHeight2() {
         Paint paint = new Paint();
         String rst = paint.pyramid(2);
-        System.out.println(rst);
+        //System.out.println(rst);
         assertThat(rst,
                 is(new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                         .add(" ^ ")
@@ -42,7 +42,7 @@ public class PaintTest {
     public void whenPyramid4Right() {
         Paint paint = new Paint();
         String rst = paint.rightTrl(4);
-        System.out.println(rst);
+        //System.out.println(rst);
         assertThat(rst,
                 is(
                         new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
@@ -59,7 +59,7 @@ public class PaintTest {
     public void whenPyramid4Left() {
         Paint paint = new Paint();
         String rst = paint.leftTrl(4);
-        System.out.println(rst);
+        //System.out.println(rst);
         assertThat(rst,
                 is(
                         new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
