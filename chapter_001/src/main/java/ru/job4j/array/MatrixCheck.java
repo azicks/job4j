@@ -8,19 +8,12 @@ public class MatrixCheck {
         int maxindex = data.length - 1;
 
         for (int idx = 1; idx < data.length; idx++) {
-            if (data[idx][idx] != data[idx - 1][idx - 1]) {
+            if ((data[idx][idx] != data[idx - 1][idx - 1])
+            || (data[maxindex - idx][idx] != data[maxindex - (idx - 1)][idx - 1])) {
                 result = false;
                 break;
             }
         }
-        if (result) {
-            for (int idx = 1; idx < data.length; idx++) {
-                if (data[maxindex - idx][idx] != data[maxindex - (idx - 1)][idx - 1]) {
-                    result = false;
-                    break;
-                }
-            }
-        }
-        return result;
+       return result;
     }
 }
