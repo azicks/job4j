@@ -24,7 +24,10 @@ public class ArrayChar {
 
         if (value.length <= data.length) {
             for (int idx = 0; idx != prefix.length(); idx++) {
-                result &= value[idx] == data[idx];
+                if (value[idx] != data[idx]) {
+                    result = false;
+                    break;
+                }
             }
         } else {
             result = false;
