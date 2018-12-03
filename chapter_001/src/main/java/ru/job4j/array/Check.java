@@ -11,7 +11,10 @@ public class Check {
 
         if (data.length > 1) {
             for (int idx = 1; idx != data.length; idx++) {
-                result &= data[idx] == data[idx - 1];
+                if (data[idx] != data[idx - 1]) {
+                    result = false;
+                    break;
+                }
             }
         }
         return result;
