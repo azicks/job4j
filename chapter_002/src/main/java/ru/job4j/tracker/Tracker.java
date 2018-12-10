@@ -30,6 +30,7 @@ public class Tracker {
      * @param item Новая заявка
      */
     public void replace(String id, Item item) {
+        item.setId(id);
         int idx = this.findIndexById(id);
         if (idx != -1) {
             this.items[idx] = item;
@@ -44,11 +45,7 @@ public class Tracker {
     public void delete(String id) {
         int idx = this.findIndexById(id);
         if (idx != -1) {
-            Item[] items = this.items.clone();
-            System.arraycopy(items, 0, this.items, 0, idx);
-            if (idx < this.items.length - 1) {
-                System.arraycopy(items, idx + 1, this.items, idx, items.length - 1 - idx);
-            }
+            System.arraycopy(this.items, idx + 1, this.items, idx, position--);
         }
     }
 
@@ -61,8 +58,9 @@ public class Tracker {
     public Item findById(String id) {
         Item result = null;
         for (Item item : this.items) {
-            if (item != null && item.getId().equals(id)) {
+            if (item.getId().equals(id)) {
                 result = item;
+                break;
             }
         }
         return result;
@@ -72,15 +70,7 @@ public class Tracker {
      * Возвращает копию массива this.items без null элементов
      */
     public Item[] findAll() {
-        Item[] result = new Item[this.items.length];
-        int numOfItems = 0;
-        for (Item item : this.items) {
-            if (item != null) {
-                result[numOfItems++] = item;
-            }
-        }
-        result = Arrays.copyOf(result, numOfItems);
-        return result;
+        return Arrays.copyOf(this.items, position);
     }
 
     /**
@@ -89,15 +79,14 @@ public class Tracker {
      * @param key Имя заявки для поиска
      */
     public Item[] findByName(String key) {
-        Item[] result = new Item[this.items.length];
+        Item[] result = new Item[position];
         int numOfItems = 0;
-        for (Item item : this.items) {
-            if (item != null && item.getName().equals(key)) {
-                result[numOfItems++] = item;
+        for (int i = 0; i < position; i++) {
+            if (this.items[i].getName().equals(key)) {
+                result[numOfItems++] = this.items[i];
             }
         }
-        result = Arrays.copyOf(result, numOfItems);
-        return result;
+        return Arrays.copyOf(result, numOfItems);
     }
 
     /**
@@ -119,8 +108,8 @@ public class Tracker {
         int index = -1;
         Item item = this.findById(id);
         if (item != null) {
-            for (int i = 0; i != this.items.length; i++) {
-                if (this.items[i] != null && this.items[i].equals(item)) {
+            for (int i = 0; i != position; i++) {
+                if (this.items[i].equals(item)) {
                     index = i;
                 }
             }
