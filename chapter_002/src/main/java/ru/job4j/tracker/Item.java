@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Random;
-
 /**
  * Класс заявки
  *
@@ -13,13 +11,11 @@ public class Item {
     private String desc;
     private long created;
     private String[] comments;
-    private static final Random RND = new Random();
 
     Item(String name, String desc, long created) {
         this.name = name;
         this.desc = desc;
         this.created = created;
-        this.id = generateId();
     }
 
     public void setId(String id) {
@@ -35,14 +31,4 @@ public class Item {
     public String getName() {
         return this.name;
     }
-
-    /**
-     * Генерирует уникальный ключ для заявки
-     *
-     * @return Уникальный ключ.
-     */
-    private String generateId() {
-        return Long.toString((System.currentTimeMillis() + RND.nextInt(100)));
-    }
-
 }

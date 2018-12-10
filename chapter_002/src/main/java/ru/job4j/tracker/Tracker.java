@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @since 10.12.2018
@@ -9,6 +10,7 @@ public class Tracker {
 
     private final Item[] items = new Item[100];
     private int position = 0;
+    private static final Random RND = new Random();
 
     /**
      * Добавляет заявку в хранилище
@@ -16,6 +18,7 @@ public class Tracker {
      * @param item новая заявка
      */
     public Item add(Item item) {
+        item.setId(generateId());
         this.items[this.position++] = item;
         return item;
     }
@@ -109,5 +112,14 @@ public class Tracker {
             }
         }
         return index;
+    }
+
+    /**
+     * Генерирует уникальный ключ для заявки
+     *
+     * @return Уникальный ключ.
+     */
+    private String generateId() {
+        return Long.toString((System.currentTimeMillis() + RND.nextInt(100)));
     }
 }

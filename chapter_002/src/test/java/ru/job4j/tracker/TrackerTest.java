@@ -65,9 +65,9 @@ public class TrackerTest {
     public void whenFindById() {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
-        item.setId("1");
         tracker.add(item);
-        assertThat(tracker.findById("1"), is(item));
+        item = tracker.findByName("test1")[0];
+        assertThat(tracker.findById(item.getId()), is(item));
         assertThat(tracker.findById("-1"), is((Object) null));
     }
 }
