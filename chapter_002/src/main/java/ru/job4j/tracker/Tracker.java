@@ -1,14 +1,12 @@
 package ru.job4j.tracker;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * @since 10.12.2018
  */
 public class Tracker {
 
-    private static final Random RND = new Random();
     private final Item[] items = new Item[100];
     private int position = 0;
 
@@ -18,7 +16,6 @@ public class Tracker {
      * @param item новая заявка
      */
     public Item add(Item item) {
-        item.setId(this.generateId());
         this.items[this.position++] = item;
         return item;
     }
@@ -29,12 +26,15 @@ public class Tracker {
      * @param id   ID заявки
      * @param item Новая заявка
      */
-    public void replace(String id, Item item) {
-        item.setId(id);
+    public boolean replace(String id, Item item) {
+        boolean success = false;
         int idx = this.findIndexById(id);
         if (idx != -1) {
             this.items[idx] = item;
+            item.setId(id);
+            success = true;
         }
+        return success;
     }
 
     /**
@@ -42,11 +42,14 @@ public class Tracker {
      *
      * @param id ID
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean success = false;
         int idx = this.findIndexById(id);
         if (idx != -1) {
             System.arraycopy(this.items, idx + 1, this.items, idx, position--);
+            success = true;
         }
+        return success;
     }
 
     /**
@@ -57,9 +60,9 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                result = item;
+        for (int i = 0; i != position; i++) {
+            if (this.items[i].getId().equals(id)) {
+                result = this.items[i];
                 break;
             }
         }
@@ -87,15 +90,6 @@ public class Tracker {
             }
         }
         return Arrays.copyOf(result, numOfItems);
-    }
-
-    /**
-     * Генерирует уникальный ключ для заявки
-     *
-     * @return Уникальный ключ.
-     */
-    private String generateId() {
-        return Long.toString((System.currentTimeMillis() + RND.nextInt(100)));
     }
 
     /**

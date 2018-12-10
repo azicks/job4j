@@ -41,7 +41,8 @@ public class TrackerTest {
         tracker.add(item2);
         Item item3 = new Item("test3", "testDescription", 125L);
         Item[] expected = new Item[]{item1, item3};
-        tracker.replace(item2.getId(), item3);
+        assertThat(tracker.replace(item2.getId(), item3), is(true));
+        assertThat(tracker.replace("-1", item3), is(false));
         assertThat(tracker.findAll(), is(expected));
     }
 
@@ -55,7 +56,18 @@ public class TrackerTest {
         Item item3 = new Item("test3", "testDescription", 125L);
         tracker.add(item3);
         Item[] expected = new Item[]{item1, item3};
-        tracker.delete(item2.getId());
+        assertThat(tracker.delete(item2.getId()), is(true));
+        assertThat(tracker.delete("-1"), is(false));
         assertThat(tracker.findAll(), is(expected));
+    }
+
+    @Test
+    public void whenFindById() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("test1", "testDescription", 123L);
+        item.setId("1");
+        tracker.add(item);
+        assertThat(tracker.findById("1"), is(item));
+        assertThat(tracker.findById("-1"), is((Object) null));
     }
 }
