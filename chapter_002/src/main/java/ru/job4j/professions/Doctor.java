@@ -1,7 +1,7 @@
 package ru.job4j.professions;
 
 public class Doctor extends Profession {
-    public void cure (Patient p) {
+    public void cure(Patient p) {
 
     }
 }
