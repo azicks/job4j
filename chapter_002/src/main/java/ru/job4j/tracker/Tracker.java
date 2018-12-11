@@ -27,14 +27,14 @@ public class Tracker {
      * Заменяет заявку в хранилище по ID заявки
      *
      * @param id   ID заявки
-     * @param item Новая заявка
+     * @param newItem Новая заявка
      */
-    public boolean replace(String id, Item item) {
+    public boolean replace(String id, Item newItem) {
         boolean success = false;
         int idx = this.findIndexById(id);
         if (idx != -1) {
-            this.items[idx] = item;
-            item.setId(id);
+            this.items[idx] = newItem;
+            newItem.setId(id);
             success = true;
         }
         return success;
@@ -56,7 +56,7 @@ public class Tracker {
     }
 
     /**
-     * Ищет заявку по ID
+     * Ищет заявку по ID, если не найдено возвращает null
      *
      * @param id ID заявки
      * @return Заявка
