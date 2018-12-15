@@ -14,6 +14,12 @@ public class StartUI {
         init();
     }
 
+    StartUI(Input input, Tracker tracker) {
+        this.input = input;
+        this.tracker = tracker;
+        init();
+    }
+
     private void init() {
         this.menu = new MenuTracker(tracker, input);
         do {
