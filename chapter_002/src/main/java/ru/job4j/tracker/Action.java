@@ -94,27 +94,23 @@ public class Action {
 
     private void editItem() {
         String itemId = this.input.ask("Введите ID заявки для редактирования");
-        if (this.checkId(itemId)) {
-            Item newItem = new Item(
-                    this.input.ask("Введите новое имя заявки"),
-                    this.input.ask("Введите новое описание заявки"),
-                    System.currentTimeMillis());
-            if (tracker.replace(itemId, newItem)) {
-                this.input.print("Успешно.\n");
-            } else {
-                this.input.print("Не удалось\n");
-            }
+        Item newItem = new Item(
+                this.input.ask("Введите новое имя заявки"),
+                this.input.ask("Введите новое описание заявки"),
+                System.currentTimeMillis());
+        if (tracker.replace(itemId, newItem)) {
+            this.input.print("Успешно.\n");
+        } else {
+            this.input.print("Не удалось\n");
         }
     }
 
     private void deleteItem() {
         String itemId = this.input.ask("Введите ID заявки для удаления");
-        if (this.checkId(itemId)) {
-            if (tracker.delete(itemId)) {
-                this.input.print("Успешно.\n");
-            } else {
-                this.input.print("Не удалось\n");
-            }
+        if (tracker.delete(itemId)) {
+            this.input.print("Успешно.\n");
+        } else {
+            this.input.print("Не удалось\n");
         }
     }
 
@@ -132,14 +128,5 @@ public class Action {
                 this.showItem(item);
             }
         }
-    }
-
-    private boolean checkId(String id) {
-        boolean result = true;
-        if (this.tracker.findById(id) == null) {
-            this.input.print("Заявка с ID " + id + " не найдена.\n");
-            result = false;
-        }
-        return result;
     }
 }

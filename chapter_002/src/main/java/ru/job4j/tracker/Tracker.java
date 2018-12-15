@@ -103,12 +103,10 @@ public class Tracker {
      */
     private int findIndexById(String id) {
         int index = -1;
-        Item item = this.findById(id);
-        if (item != null) {
-            for (int i = 0; i != position; i++) {
-                if (this.items[i].equals(item)) {
-                    index = i;
-                }
+        for (int i = 0; i != position; i++) {
+            if (this.items[i].getId().equals(id)) {
+                index = i;
+                break;
             }
         }
         return index;
