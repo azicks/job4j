@@ -34,4 +34,36 @@ public class StartUITest {
         new StartUI(new StubInput(action), tracker);
         assertThat(tracker.findAll(), is(new Item[0]));
     }
+
+    @Test
+    public void whenDelete2Of123ThenTrackerHas13() {
+        Tracker tracker = new Tracker();
+        Item[] result;
+        Item item1 = new Item("Item1", "desc", 123L);
+        Item item2 = new Item("Item2", "desc", 123L);
+        Item item3 = new Item("Item3", "desc", 123L);
+        tracker.add(item1);
+        item2 = tracker.add(item2);
+        tracker.add(item3);
+        String[] action = {"3", item2.getId(), "0"};
+        new StartUI(new StubInput(action), tracker);
+        result = new Item[]{item1, item3};
+        assertThat(tracker.findAll(), is(result));
+    }
+
+    @Test
+    public void whenDelete3Of123ThenTrackerHas12() {
+        Tracker tracker = new Tracker();
+        Item[] result;
+        Item item1 = new Item("Item1", "desc", 123L);
+        Item item2 = new Item("Item2", "desc", 123L);
+        Item item3 = new Item("Item3", "desc", 123L);
+        tracker.add(item1);
+        tracker.add(item2);
+        item3 = tracker.add(item3);
+        String[] action = {"3", item3.getId(), "0"};
+        new StartUI(new StubInput(action), tracker);
+        result = new Item[]{item1, item2};
+        assertThat(tracker.findAll(), is(result));
+    }
 }
