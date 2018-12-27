@@ -66,7 +66,7 @@ public class Action {
         String itemId = this.input.ask("Введите ID заявки");
         Item item = this.tracker.findById(itemId);
         if (item == null) {
-            this.input.print("Заявка с ID " + itemId + " не найдена.\n");
+            this.input.print("Заявка с ID " + itemId + " не найдена." + System.lineSeparator());
         } else {
             this.showItem(item);
         }
@@ -89,7 +89,7 @@ public class Action {
                 this.input.ask("Введите описание заявки"),
                 System.currentTimeMillis());
         this.tracker.add(item);
-        input.print("Заявка добавлена, ее ID:" + item.getId() + "\n");
+        input.print("Заявка добавлена, ее ID:" + item.getId() + System.lineSeparator());
     }
 
     private void editItem() {
@@ -99,9 +99,9 @@ public class Action {
                 this.input.ask("Введите новое описание заявки"),
                 System.currentTimeMillis());
         if (tracker.replace(itemId, newItem)) {
-            this.input.print("Успешно.\n");
+            this.input.print("Успешно." + System.lineSeparator());
         } else {
-            this.input.print("Не удалось\n");
+            this.input.print("Не удалось" + System.lineSeparator());
         }
     }
 
@@ -117,12 +117,14 @@ public class Action {
     private void showItem(Item item) {
         this.input.print("Заявка с ID " + item.getId() + ":");
         this.input.print("Имя заявки: " + item.getName());
-        this.input.print("Описание заявки: " + item.getDesc() + "\n");
+        this.input.print("Описание заявки: " + item.getDesc());
+        this.input.print("");
     }
 
     private void showItems(Item[] items) {
         if (items.length == 0) {
-            this.input.print("Заявки не найдены. \n");
+            this.input.print("Заявки не найдены.");
+            this.input.print("");
         } else {
             for (Item item : items) {
                 this.showItem(item);
