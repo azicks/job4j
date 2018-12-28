@@ -59,9 +59,17 @@ public class MenuTracker {
         this.actions.add(new ShowAll(6, "Показать все заявки"));
     }
 
-    private class CreateItem extends UserAction {
+    private class CreateItem implements UserAction {
+        private int id;
+        private String name;
         CreateItem(int id, String name) {
-            super(id, name);
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return String.format("%d. %s", this.id, this.name);
         }
 
         @Override
@@ -76,9 +84,17 @@ public class MenuTracker {
         }
     }
 
-    private class EditItem extends UserAction {
+    private class EditItem implements UserAction {
+        private int id;
+        private String name;
         EditItem(int id, String name) {
-            super(id, name);
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return String.format("%d. %s", this.id, this.name);
         }
 
         @Override
@@ -97,9 +113,17 @@ public class MenuTracker {
         }
     }
 
-    private class DeleteItem extends UserAction {
+    private class DeleteItem implements UserAction {
+        private int id;
+        private String name;
         DeleteItem(int id, String name) {
-            super(id, name);
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return String.format("%d. %s", this.id, this.name);
         }
 
         @Override
@@ -114,9 +138,17 @@ public class MenuTracker {
         }
     }
 
-    private class FindItemById extends UserAction {
+    private class FindItemById implements UserAction {
+        private int id;
+        private String name;
         FindItemById(int id, String name) {
-            super(id, name);
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return String.format("%d. %s", this.id, this.name);
         }
 
         @Override
@@ -132,9 +164,17 @@ public class MenuTracker {
         }
     }
 
-    private class FindItemByName extends UserAction {
+    private class FindItemByName implements UserAction {
+        private int id;
+        private String name;
         FindItemByName(int id, String name) {
-            super(id, name);
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return String.format("%d. %s", this.id, this.name);
         }
 
         @Override
@@ -146,9 +186,17 @@ public class MenuTracker {
         }
     }
 
-    private class ShowAll extends UserAction {
+    private class ShowAll implements UserAction {
+        private int id;
+        private String name;
         ShowAll(int id, String name) {
-            super(id, name);
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return String.format("%d. %s", this.id, this.name);
         }
 
         @Override
@@ -159,9 +207,17 @@ public class MenuTracker {
         }
     }
 
-    private class ExitProgram extends UserAction {
+    private class ExitProgram implements UserAction {
+        private int id;
+        private String name;
         ExitProgram(int id, String name) {
-            super(id, name);
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return String.format("%d. %s", this.id, this.name);
         }
 
         @Override
