@@ -25,7 +25,7 @@ public class StartUI {
         do {
             menu.show();
             menu.select();
-        } while (!menu.execute());
+        } while (menu.execute());
     }
 
     public static void main(String[] args) {
