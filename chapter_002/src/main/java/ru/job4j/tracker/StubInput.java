@@ -17,6 +17,11 @@ public class StubInput implements Input {
     }
 
     @Override
+    public int ask(String question, int[] range) {
+        return Integer.valueOf(this.ask(question));
+    }
+
+    @Override
     public void print(String data) {
         System.out.println(data);
     }

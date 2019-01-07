@@ -14,6 +14,14 @@ public class MenuTracker {
     private int selected = -1;
     private List<UserAction> actions = new ArrayList<>();
 
+    public int[] getActionsIds() {
+        int[] result = new int[actions.size()];
+        for (int i = 0; i < actions.size(); i++) {
+            result[i] = actions.get(i).getId();
+        }
+        return result;
+    }
+
     public MenuTracker(Tracker tracker, Input input) {
         this.tracker = tracker;
         this.input = input;
@@ -31,12 +39,7 @@ public class MenuTracker {
      * Делает выбор в меню
      */
     public void select() {
-        do {
-            try {
-                this.selected = Integer.parseInt(this.input.ask("Выберите действие"));
-            } catch (Exception e) {
-            }
-        } while (!(this.selected < this.actions.size() && this.selected >= 0));
+        this.selected = this.input.ask("Выберите действие", this.getActionsIds());
         this.input.print("");
     }
 
@@ -62,6 +65,11 @@ public class MenuTracker {
     private class CreateItem implements UserAction {
         private int id;
         private String name;
+
+        public int getId() {
+            return this.id;
+        }
+
         CreateItem(int id, String name) {
             this.id = id;
             this.name = name;
@@ -87,6 +95,11 @@ public class MenuTracker {
     private class EditItem implements UserAction {
         private int id;
         private String name;
+
+        public int getId() {
+            return this.id;
+        }
+
         EditItem(int id, String name) {
             this.id = id;
             this.name = name;
@@ -116,6 +129,11 @@ public class MenuTracker {
     private class DeleteItem implements UserAction {
         private int id;
         private String name;
+
+        public int getId() {
+            return this.id;
+        }
+
         DeleteItem(int id, String name) {
             this.id = id;
             this.name = name;
@@ -141,6 +159,11 @@ public class MenuTracker {
     private class FindItemById implements UserAction {
         private int id;
         private String name;
+
+        public int getId() {
+            return this.id;
+        }
+
         FindItemById(int id, String name) {
             this.id = id;
             this.name = name;
@@ -167,6 +190,11 @@ public class MenuTracker {
     private class FindItemByName implements UserAction {
         private int id;
         private String name;
+
+        public int getId() {
+            return this.id;
+        }
+
         FindItemByName(int id, String name) {
             this.id = id;
             this.name = name;
@@ -189,6 +217,11 @@ public class MenuTracker {
     private class ShowAll implements UserAction {
         private int id;
         private String name;
+
+        public int getId() {
+            return this.id;
+        }
+
         ShowAll(int id, String name) {
             this.id = id;
             this.name = name;
@@ -210,6 +243,11 @@ public class MenuTracker {
     private class ExitProgram implements UserAction {
         private int id;
         private String name;
+
+        public int getId() {
+            return this.id;
+        }
+
         ExitProgram(int id, String name) {
             this.id = id;
             this.name = name;
