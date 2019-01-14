@@ -16,18 +16,7 @@ public class ConsoleInput implements Input {
 
     @Override
     public int ask(String question, int[] range) {
-        boolean exists = false;
-        int key = Integer.valueOf(this.ask(question));
-        for (int val : range) {
-            if (val == key) {
-                exists = true;
-                break;
-            }
-        }
-        if (!exists) {
-            throw new MenuWrongIndexException("Выбран неверный пункт меню.");
-        }
-        return key;
+        return Integer.valueOf(this.ask(question));
     }
 
     @Override

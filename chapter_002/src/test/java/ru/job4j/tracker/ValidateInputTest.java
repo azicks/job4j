@@ -36,7 +36,21 @@ public class ValidateInputTest {
                 .append("Введено некорректное значение.").append(System.lineSeparator())
                 .append("Enter: 0").append(System.lineSeparator())
                 .toString();
-        input.ask("Enter", new int[]{1});
+        input.ask("Enter", new int[]{0});
+        assertThat(this.out.toString(), is(expected));
+    }
+
+    @Test
+    public void whenMenuOutIndex() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[]{"25", "0"})
+        );
+        String expected = new StringBuilder()
+                .append("Enter: 25").append(System.lineSeparator())
+                .append("Выбран неверный пункт меню.").append(System.lineSeparator())
+                .append("Enter: 0").append(System.lineSeparator())
+                .toString();
+        input.ask("Enter", new int[]{0});
         assertThat(this.out.toString(), is(expected));
     }
 }
