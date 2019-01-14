@@ -62,22 +62,9 @@ public class MenuTracker {
         this.actions.add(new ShowAll(6, "Показать все заявки"));
     }
 
-    private class CreateItem implements UserAction {
-        private int id;
-        private String name;
-
-        public int getId() {
-            return this.id;
-        }
-
+    private class CreateItem extends BaseAction {
         CreateItem(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return String.format("%d. %s", this.id, this.name);
+            super(id, name);
         }
 
         @Override
@@ -92,22 +79,9 @@ public class MenuTracker {
         }
     }
 
-    private class EditItem implements UserAction {
-        private int id;
-        private String name;
-
-        public int getId() {
-            return this.id;
-        }
-
+    private class EditItem extends BaseAction {
         EditItem(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return String.format("%d. %s", this.id, this.name);
+            super(id, name);
         }
 
         @Override
@@ -126,22 +100,9 @@ public class MenuTracker {
         }
     }
 
-    private class DeleteItem implements UserAction {
-        private int id;
-        private String name;
-
-        public int getId() {
-            return this.id;
-        }
-
+    private class DeleteItem extends BaseAction {
         DeleteItem(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return String.format("%d. %s", this.id, this.name);
+            super(id, name);
         }
 
         @Override
@@ -156,22 +117,9 @@ public class MenuTracker {
         }
     }
 
-    private class FindItemById implements UserAction {
-        private int id;
-        private String name;
-
-        public int getId() {
-            return this.id;
-        }
-
+    private class FindItemById extends BaseAction {
         FindItemById(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return String.format("%d. %s", this.id, this.name);
+            super(id, name);
         }
 
         @Override
@@ -187,22 +135,9 @@ public class MenuTracker {
         }
     }
 
-    private class FindItemByName implements UserAction {
-        private int id;
-        private String name;
-
-        public int getId() {
-            return this.id;
-        }
-
+    private class FindItemByName extends BaseAction {
         FindItemByName(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return String.format("%d. %s", this.id, this.name);
+            super(id, name);
         }
 
         @Override
@@ -214,22 +149,9 @@ public class MenuTracker {
         }
     }
 
-    private class ShowAll implements UserAction {
-        private int id;
-        private String name;
-
-        public int getId() {
-            return this.id;
-        }
-
+    private class ShowAll extends BaseAction {
         ShowAll(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return String.format("%d. %s", this.id, this.name);
+            super(id, name);
         }
 
         @Override
@@ -240,22 +162,9 @@ public class MenuTracker {
         }
     }
 
-    private class ExitProgram implements UserAction {
-        private int id;
-        private String name;
-
-        public int getId() {
-            return this.id;
-        }
-
+    private class ExitProgram extends BaseAction {
         ExitProgram(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return String.format("%d. %s", this.id, this.name);
+            super(id, name);
         }
 
         @Override
