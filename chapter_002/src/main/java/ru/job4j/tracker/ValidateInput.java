@@ -19,22 +19,12 @@ public class ValidateInput implements Input {
 
     @Override
     public int ask(String question, int[] range) {
-        boolean exists = false;
         int result = -1;
         boolean invalid = true;
         do {
             try {
                 try {
                     result = this.input.ask(question, range);
-                    for (int val : range) {
-                        if (val == result) {
-                            exists = true;
-                            break;
-                        }
-                    }
-                    if (!exists) {
-                        throw new MenuWrongIndexException("Выбран неверный пункт меню.");
-                    }
                 } catch (NumberFormatException e) {
                     throw new MenuWrongIndexException("Введено некорректное значение.", e);
                 }

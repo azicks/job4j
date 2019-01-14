@@ -18,7 +18,18 @@ public class StubInput implements Input {
 
     @Override
     public int ask(String question, int[] range) {
-        return Integer.valueOf(this.ask(question));
+        boolean exists = false;
+        int result = Integer.valueOf(this.ask(question));
+        for (int val : range) {
+            if (val == result) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            throw new MenuWrongIndexException("Выбран неверный пункт меню.");
+        }
+        return result;
     }
 
     @Override
