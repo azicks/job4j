@@ -1,7 +1,11 @@
 package ru.job4j.chess;
 
+import ru.job4j.chess.exceptions.FigureNotFoundException;
+import ru.job4j.chess.exceptions.ImpossibleMoveException;
+import ru.job4j.chess.exceptions.OccupiedWayException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.black.KingBlack;
 
 import java.util.Optional;
 
@@ -21,14 +25,13 @@ public class Logic {
     }
 
     public boolean move(Cell source, Cell dest) {
-        boolean rst = false;
-        int index = this.findBy(source);
-        if (index != -1) {
-            Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                rst = true;
-                this.figures[index] = this.figures[index].copy(dest);
-            }
+        boolean rst = true;
+        try {
+            int index = this.findBy(source);
+            this.checkWay(this.figures[index].way(source, dest));
+            this.figures[index] = this.figures[index].copy(dest);
+        } catch (FigureNotFoundException | ImpossibleMoveException | OccupiedWayException e) {
+            rst = false;
         }
         return rst;
     }
@@ -40,7 +43,7 @@ public class Logic {
         this.index = 0;
     }
 
-    private int findBy(Cell cell) {
+    private int findBy(Cell cell) throws FigureNotFoundException {
         int rst = -1;
         for (int index = 0; index != this.figures.length; index++) {
             if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
@@ -48,6 +51,24 @@ public class Logic {
                 break;
             }
         }
+        if (rst == -1) {
+            throw new FigureNotFoundException("figure not found");
+        }
         return rst;
+    }
+
+    private void checkWay(Cell[] steps) throws OccupiedWayException {
+        if (steps.length == 0) {
+            throw new OccupiedWayException("null move");
+        }
+        for (Cell step : steps) {
+            try {
+                int idx = this.findBy(step);
+                if (!(this.figures[idx] instanceof KingBlack)) {
+                    throw new OccupiedWayException("Occupied way");
+                }
+            } catch (FigureNotFoundException ignored) {
+            }
+        }
     }
 }
