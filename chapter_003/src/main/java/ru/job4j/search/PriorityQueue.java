@@ -1,10 +1,9 @@
 package ru.job4j.search;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class PriorityQueue {
-    private LinkedList<Task> tasks = new LinkedList<>(new ArrayList<Task>(5));
+    private LinkedList<Task> tasks = new LinkedList<>();
 
     /**
      * Метод должен вставлять в нужную позицию элемент.
@@ -14,18 +13,20 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        while (this.tasks.size() < task.getPriority()) {
-            this.tasks.add(null);
+        if (this.tasks.size() == 0) {
+            this.tasks.add(task);
+        } else {
+            for (int idx = 0; idx != this.tasks.size(); idx++)
+            {
+                if (this.tasks.get(idx).getPriority() >= task.getPriority()) {
+                    this.tasks.add(idx, task);
+                    break;
+                }
+            }
         }
-        tasks.add(task.getPriority(), task);
     }
 
     public Task take() {
-        Task result;
-        do {
-            result = this.tasks.poll();
-        }
-        while (result == null && this.tasks.size() > 0);
-        return result;
+        return this.tasks.poll();
     }
 }
