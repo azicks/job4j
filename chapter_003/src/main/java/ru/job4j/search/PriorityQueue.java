@@ -16,8 +16,7 @@ public class PriorityQueue {
         if (this.tasks.size() == 0) {
             this.tasks.add(task);
         } else {
-            for (int idx = 0; idx != this.tasks.size(); idx++)
-            {
+            for (int idx = 0; idx != this.tasks.size(); idx++) {
                 if (this.tasks.get(idx).getPriority() >= task.getPriority()) {
                     this.tasks.add(idx, task);
                     break;
