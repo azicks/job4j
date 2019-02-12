@@ -143,7 +143,7 @@ public class MenuTracker {
         @Override
         public boolean execute() {
             String name = input.ask("Введите имя заявки");
-            Item[] items = tracker.findByName(name);
+            List<Item> items = tracker.findByName(name);
             showItems(items);
             return true;
         }
@@ -156,8 +156,7 @@ public class MenuTracker {
 
         @Override
         public boolean execute() {
-            Item[] items = tracker.findAll();
-            showItems(items);
+            showItems(tracker.findAll());
             return true;
         }
     }
@@ -181,8 +180,8 @@ public class MenuTracker {
         this.input.print("");
     }
 
-    private void showItems(Item[] items) {
-        if (items.length == 0) {
+    private void showItems(List<Item> items) {
+        if (items.size() == 0) {
             this.input.print("Заявки не найдены.");
             this.input.print("");
         } else {

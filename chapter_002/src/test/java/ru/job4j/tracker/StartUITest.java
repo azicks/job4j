@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -41,8 +43,8 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         String[] action = {"1", "name", "description", "0"};
         new StartUI(new StubInput(action), tracker);
-        assertThat(tracker.findAll()[0].getName(), is("name"));
-        assertThat(tracker.findAll()[0].getDesc(), is("description"));
+        assertThat(tracker.findAll().get(0).getName(), is("name"));
+        assertThat(tracker.findAll().get(0).getDesc(), is("description"));
     }
 
     @Test
@@ -61,19 +63,20 @@ public class StartUITest {
         Item item = tracker.add(new Item("test name", "desc", 123L));
         String[] action = {"3", item.getId(), "0"};
         new StartUI(new StubInput(action), tracker);
-        assertThat(tracker.findAll(), is(new Item[0]));
+        assertThat(tracker.findAll(), is(new ArrayList<Item>()));
     }
 
     @Test
     public void whenDelete2Of123ThenTrackerHas13() {
         Tracker tracker = new Tracker();
-        Item[] result;
         Item item1 = tracker.add(new Item("Item1", "desc", 123L));
         Item item2 = tracker.add(new Item("Item2", "desc", 123L));
         Item item3 = tracker.add(new Item("Item3", "desc", 123L));
         String[] action = {"3", item2.getId(), "0"};
         new StartUI(new StubInput(action), tracker);
-        result = new Item[]{item1, item3};
+        List<Item> result = new ArrayList<>();
+        result.add(item1);
+        result.add(item3);
         assertThat(tracker.findAll(), is(result));
     }
 
@@ -85,7 +88,10 @@ public class StartUITest {
         Item item3 = tracker.add(new Item("Item3", "desc", 123L));
         String[] action = {"3", item3.getId(), "0"};
         new StartUI(new StubInput(action), tracker);
-        assertThat(tracker.findAll(), is(new Item[]{item1, item2}));
+        List<Item> result = new ArrayList<>();
+        result.add(item1);
+        result.add(item2);
+        assertThat(tracker.findAll(), is(result));
     }
 
     @Test
