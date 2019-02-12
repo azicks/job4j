@@ -1,11 +1,15 @@
 package ru.job4j.sort;
 
-public class User implements Comparable<User>{
+public class User implements Comparable<User> {
     private int age;
     private String name;
 
     public int getAge() {
         return this.age;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public User(int age, String name) {
