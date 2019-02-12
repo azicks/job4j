@@ -25,7 +25,7 @@ public class Tracker {
     /**
      * Заменяет заявку в хранилище по ID заявки
      *
-     * @param id   ID заявки
+     * @param id      ID заявки
      * @param newItem Новая заявка
      */
     public boolean replace(String id, Item newItem) {
@@ -98,14 +98,9 @@ public class Tracker {
      * @return index
      */
     private int findIndexById(String id) {
-        int index = -1;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                index = this.items.indexOf(item);
-                break;
-            }
-        }
-        return index;
+        Item i = new Item("1", "2", 3);
+        i.setId(id);
+        return this.items.contains(i) ? items.indexOf(i) : -1;
     }
 
     /**
