@@ -98,9 +98,14 @@ public class Tracker {
      * @return index
      */
     private int findIndexById(String id) {
-        Item i = new Item("1", "2", 3);
-        i.setId(id);
-        return this.items.contains(i) ? items.indexOf(i) : -1;
+        int index = -1;
+        for (int i = 0; i != this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(id)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     /**
