@@ -1,8 +1,17 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 public class ValidateInput implements Input {
 
     private final Input input;
+    private Consumer<String> output;
+
+    @Override
+    public void setOutput(Consumer<String> output) {
+        this.output = output;
+        this.input.setOutput(output);
+    }
 
     ValidateInput(Input input) {
         this.input = input;

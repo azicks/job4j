@@ -1,16 +1,24 @@
 package ru.job4j.tracker;
 
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 /**
  * @since 11.12.2018
  */
 public class ConsoleInput implements Input {
 
+    private Consumer<String> output;
+
+    @Override
+    public void setOutput(Consumer<String> output) {
+        this.output = output;
+    }
+
     @Override
     public String ask(String question) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print(question + ": ");
+        output.accept(question + ": ");
         return scanner.nextLine();
     }
 
@@ -32,6 +40,6 @@ public class ConsoleInput implements Input {
 
     @Override
     public void print(String data) {
-        System.out.println(data);
+        output.accept(data + System.lineSeparator());
     }
 }

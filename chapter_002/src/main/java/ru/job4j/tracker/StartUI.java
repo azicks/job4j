@@ -1,16 +1,19 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * @since 11.12.2018
  */
 public class StartUI {
-    private Input input;
+    private final Input input;
     private MenuTracker menu;
-    private Tracker tracker;
+    private final Tracker tracker;
 
-    StartUI(Input input) {
+    StartUI(Input input, Consumer<String> output) {
         this.input = input;
         this.tracker = new Tracker();
+        this.input.setOutput(output);
         init();
     }
 
@@ -29,6 +32,6 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(new ConsoleInput()));
+        new StartUI(new ValidateInput(new ConsoleInput()), System.out::print);
     }
 }
