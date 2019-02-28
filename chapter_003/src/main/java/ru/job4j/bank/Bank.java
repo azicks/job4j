@@ -29,10 +29,12 @@ public class Bank {
 
     public void deleteAccountFromUser(String passport, Account account) {
         List<Account> accounts = getUserAccounts(passport);
-        for (int i = 0; i != accounts.size(); i++) {
-            if (account.getRequisites().equals(accounts.get(i).getRequisites())) {
-                accounts.remove(i);
-                break;
+        if (account != null) {
+            for (int i = 0; i != accounts.size(); i++) {
+                if (account.getRequisites().equals(accounts.get(i).getRequisites())) {
+                    accounts.remove(i);
+                    break;
+                }
             }
         }
     }
@@ -48,7 +50,7 @@ public class Bank {
     private Account getAccount(List<Account> accounts, String requisites) {
         Account result = null;
         for (int i = 0; i != accounts.size(); i++) {
-            if (accounts.get(i).getRequisites() == requisites) {
+            if (accounts.get(i).getRequisites().equals(requisites)) {
                 result = accounts.get(i);
                 break;
             }

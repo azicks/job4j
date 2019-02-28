@@ -29,7 +29,7 @@ public class Account {
     }
 
     public void subValue(double value) {
-        this.value += value;
+        this.value -= value;
     }
 
     @Override
