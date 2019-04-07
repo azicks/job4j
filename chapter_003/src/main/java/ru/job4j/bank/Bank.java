@@ -1,10 +1,11 @@
 package ru.job4j.bank;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Bank {
 
-    private Map<User, List<Account>> users = new HashMap<>();
+    private final Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
         if (user != null) {
@@ -29,18 +30,18 @@ public class Bank {
 
     public void deleteAccountFromUser(String passport, Account account) {
         List<Account> accounts = getUserAccounts(passport);
-        if (account != null) {
-            for (int i = 0; i != accounts.size(); i++) {
-                if (account.getRequisites().equals(accounts.get(i).getRequisites())) {
-                    accounts.remove(i);
-                    break;
-                }
-            }
+        if (account != null && accounts != null) {
+            accounts.removeAll(
+                    accounts.stream().filter(acc -> acc.getRequisites().equals(account.getRequisites()))
+                    .collect(Collectors.toList()));
         }
     }
 
     public List<Account> getUserAccounts(String passport) {
-        return this.users.get(new User(passport));
+       Optional<List<Account>> accounts = this.users.entrySet().stream()
+               .filter(user -> user.getKey().getPassport().equals(passport))
+               .map(Map.Entry::getValue).findFirst();
+        return accounts.orElse(null);
     }
 
     private Account getAccount(String passport, String requisites) {
@@ -48,14 +49,9 @@ public class Bank {
     }
 
     private Account getAccount(List<Account> accounts, String requisites) {
-        Account result = null;
-        for (int i = 0; i != accounts.size(); i++) {
-            if (accounts.get(i).getRequisites().equals(requisites)) {
-                result = accounts.get(i);
-                break;
-            }
-        }
-        return result;
+        Optional<Account> account = accounts.stream()
+                .filter(acc -> acc.getRequisites().equals(requisites)).findFirst();
+        return account.orElse(null);
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String dstPassport, String dstRequisite, double amount) {
