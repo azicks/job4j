@@ -32,7 +32,7 @@ public class SortUserTest {
         User u3 = new User(20, "Сергей");
         User u4 = new User(25, "Иван");
         List<User> list = new ArrayList<>(Arrays.asList(u1, u2, u3, u4));
-        new SortUser().sortNameLength(list);
+        list = new SortUser().sortNameLength(list);
         String[] expected = {"Иван", "Иван", "Сергей", "Сергей"};
         String[] result = new String[4];
         for (int i = 0; i != 4; i++) {
@@ -48,7 +48,7 @@ public class SortUserTest {
         User u3 = new User(20, "Сергей");
         User u4 = new User(25, "Иван");
         List<User> list = new ArrayList<>(Arrays.asList(u1, u2, u3, u4));
-        new SortUser().sortByAllFields(list);
+        list = new SortUser().sortByAllFields(list);
         String[] expected = {"Иван25", "Иван30", "Сергей20", "Сергей25"};
         String[] result = new String[4];
         for (int i = 0; i != 4; i++) {
