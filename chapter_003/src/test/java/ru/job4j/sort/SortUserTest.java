@@ -15,7 +15,7 @@ public class SortUserTest {
         User u2 = new User(15, "15");
         User u3 = new User(20, "20");
         User u4 = new User(12, "12");
-        List<User> list = new ArrayList<>(Arrays.asList(u1, u2, u3, u4));
+        List<User> list = List.of(u1, u2, u3, u4);
         TreeSet<User> set = (TreeSet<User>) new SortUser().sort(list);
         int[] expected = {12, 15, 20, 30};
         int[] result = new int[4];
@@ -31,7 +31,7 @@ public class SortUserTest {
         User u2 = new User(30, "Иван");
         User u3 = new User(20, "Сергей");
         User u4 = new User(25, "Иван");
-        List<User> list = new ArrayList<>(Arrays.asList(u1, u2, u3, u4));
+        List<User> list = List.of(u1, u2, u3, u4);
         list = new SortUser().sortNameLength(list);
         String[] expected = {"Иван", "Иван", "Сергей", "Сергей"};
         String[] result = new String[4];
@@ -47,7 +47,7 @@ public class SortUserTest {
         User u2 = new User(30, "Иван");
         User u3 = new User(20, "Сергей");
         User u4 = new User(25, "Иван");
-        List<User> list = new ArrayList<>(Arrays.asList(u1, u2, u3, u4));
+        List<User> list = List.of(u1, u2, u3, u4);
         list = new SortUser().sortByAllFields(list);
         String[] expected = {"Иван25", "Иван30", "Сергей20", "Сергей25"};
         String[] result = new String[4];

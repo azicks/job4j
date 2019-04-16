@@ -12,9 +12,8 @@ import static org.junit.Assert.assertThat;
 public class ConvertList2ArrayTest {
     @Test
     public void when7ElementsThen9() {
-        ConvertList2Array list = new ConvertList2Array();
-        int[][] result = list.toArray(
-                Arrays.asList(1, 2, 3, 4, 5, 6, 7),
+        int[][] result = new ConvertList2Array().toArray(
+                List.of(1, 2, 3, 4, 5, 6, 7),
                 3
         );
         int[][] expect = {
@@ -28,8 +27,7 @@ public class ConvertList2ArrayTest {
     @Test
     public void whenArraysToListInteger() {
         ConvertList2Array list = new ConvertList2Array();
-        Integer[] a = {1, 2, 3, 4, 5, 6};
-        List<Integer> expect = Arrays.asList(a);
+        List<Integer> expect = List.of(1, 2, 3, 4, 5, 6);
         list.add(new int[]{1, 2});
         list.add(new int[]{3, 4, 5, 6});
         List<Integer> result = list.convert();

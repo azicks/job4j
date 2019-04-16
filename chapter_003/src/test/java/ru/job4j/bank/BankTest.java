@@ -28,11 +28,10 @@ public class BankTest {
 
     @Test
     public void addDuplicateAccountTest() {
-        List<Account> expected = new ArrayList<>();
-        expected.add(new Account("req31"));
-        expected.add(new Account("req32"));
         bank.addAccountToUser("passport3", new Account("req32"));
-        assertEquals(bank.getUserAccounts("passport3"), expected);
+        assertEquals(bank.getUserAccounts("passport3"),
+                List.of(new Account("req31"),
+                        new Account("req32")));
     }
 
     @Test
@@ -43,10 +42,8 @@ public class BankTest {
 
     @Test
     public void deleteUserAccTest() {
-        List<Account> expected = new ArrayList<>();
-        expected.add(new Account("req31"));
         bank.deleteAccountFromUser("passport3", new Account("req32"));
-        assertEquals(bank.getUserAccounts("passport3"), expected);
+        assertEquals(bank.getUserAccounts("passport3"), List.of(new Account("req31")));
     }
 
     @Test
