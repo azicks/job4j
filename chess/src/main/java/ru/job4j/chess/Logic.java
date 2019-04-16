@@ -7,7 +7,7 @@ import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.black.KingBlack;
 
-import java.util.Optional;
+import java.util.stream.IntStream;
 
 /**
  * //TODO add comments.
@@ -37,24 +37,14 @@ public class Logic {
     }
 
     public void clean() {
-        for (int position = 0; position != this.figures.length; position++) {
-            this.figures[position] = null;
-        }
+        IntStream.range(0, this.figures.length).forEach(i -> this.figures[i] = null);
         this.index = 0;
     }
 
     private int findBy(Cell cell) throws FigureNotFoundException {
-        int rst = -1;
-        for (int index = 0; index != this.figures.length; index++) {
-            if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
-                rst = index;
-                break;
-            }
-        }
-        if (rst == -1) {
-            throw new FigureNotFoundException("figure not found");
-        }
-        return rst;
+        return IntStream.range(0, this.figures.length)
+                .filter(i -> this.figures[i] != null && this.figures[i].position().equals(cell))
+                .findFirst().orElseThrow(() -> new FigureNotFoundException("figure not found"));
     }
 
     private void checkWay(Cell[] steps) throws OccupiedWayException {
