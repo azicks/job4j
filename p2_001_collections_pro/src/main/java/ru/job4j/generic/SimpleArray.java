@@ -31,7 +31,6 @@ public class SimpleArray<T> implements Iterable<T> {
         return (T) array[idx];
     }
 
-
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
