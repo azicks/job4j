@@ -11,7 +11,7 @@ public class JaggedArrayIterator implements Iterator {
 
     public JaggedArrayIterator(int[][] matrix) {
         this.matrix = matrix;
-        for(int i = 0; i != matrix.length; i++) {
+        for (int i = 0; i != matrix.length; i++) {
             this.length += matrix[i].length;
         }
     }
@@ -30,7 +30,7 @@ public class JaggedArrayIterator implements Iterator {
                 minorIndex = 0;
             }
         }
-        index ++;
+        index++;
         return result;
     }
 }
