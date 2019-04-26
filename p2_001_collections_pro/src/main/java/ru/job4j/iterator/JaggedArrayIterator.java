@@ -1,36 +1,39 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class JaggedArrayIterator implements Iterator {
     private int[][] matrix;
-    private int index = 0;
-    private int length = 0;
-    private int majorIndex = 0;
-    private int minorIndex = 0;
+    private int majorIndex = -1;
+    private int minorIndex = -1;
 
     public JaggedArrayIterator(int[][] matrix) {
         this.matrix = matrix;
-        for (int i = 0; i != matrix.length; i++) {
-            this.length += matrix[i].length;
-        }
     }
 
     @Override
     public boolean hasNext() {
-        return index < length;
+        return majorIndex + 1 < matrix.length || minorIndex + 1 < matrix[majorIndex].length;
     }
 
     @Override
     public Object next() {
-        int result = matrix[majorIndex][minorIndex];
         if (hasNext()) {
-            if (++minorIndex == matrix[majorIndex].length) {
+            if (majorIndex == -1) {
+                majorIndex++;
+            }
+            if (minorIndex + 1 == matrix[majorIndex].length) {
                 majorIndex++;
                 minorIndex = 0;
             }
+            else {
+                minorIndex++;
+            }
         }
-        index++;
-        return result;
+        else {
+            throw new NoSuchElementException();
+        }
+        return matrix[majorIndex][minorIndex];
     }
 }
