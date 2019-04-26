@@ -5,21 +5,21 @@ import java.util.NoSuchElementException;
 
 public class EvenIterator implements Iterator {
     private int[] array;
-    private int index = 0;
+    private int index = -1;
 
     public EvenIterator(int[] array) {
         this.array = array;
-        getNext();
+        hasNext();
     }
 
     @Override
     public boolean hasNext() {
         boolean result = false;
-        if (index != -1) {
-            for (int i = index; i != array.length; i++) {
-                if (isEven(array[i])) {
-                    result = true;
-                }
+        for (int i = index + 1; i != array.length; i++) {
+            if (isEven(array[i])) {
+                result = true;
+                index = i - 1;
+                break;
             }
         }
         return result;
@@ -27,25 +27,10 @@ public class EvenIterator implements Iterator {
 
     @Override
     public Object next() {
-        if (index == -1) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        int i = index++;
-        getNext();
-        return array[i];
-    }
-
-    private void getNext() {
-        if (index != -1) {
-            int even = -1;
-            for (int i = index; i != array.length; i++) {
-                if (isEven(array[i])) {
-                    even = i;
-                    break;
-                }
-            }
-            index = even;
-        }
+        return array[++index];
     }
 
     private boolean isEven(int number) {

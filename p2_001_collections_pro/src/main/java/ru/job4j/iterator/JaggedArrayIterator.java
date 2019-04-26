@@ -26,12 +26,10 @@ public class JaggedArrayIterator implements Iterator {
             if (minorIndex + 1 == matrix[majorIndex].length) {
                 majorIndex++;
                 minorIndex = 0;
-            }
-            else {
+            } else {
                 minorIndex++;
             }
-        }
-        else {
+        } else {
             throw new NoSuchElementException();
         }
         return matrix[majorIndex][minorIndex];
