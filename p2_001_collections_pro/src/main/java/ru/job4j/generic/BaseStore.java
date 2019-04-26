@@ -30,7 +30,7 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
         boolean result = false;
         int idx = indexById(id);
         if (idx != -1) {
-            this.data.set(idx, null);
+            this.data.remove(idx);
             result = true;
         }
         return result;
