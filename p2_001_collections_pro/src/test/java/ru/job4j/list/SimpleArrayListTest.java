@@ -34,7 +34,7 @@ public class SimpleArrayListTest {
     }
 
     @Test
-    public void whenDeleteFirstElementThenTwoThree() {
+    public void whenDeleteFirstElementThenTwoOne() {
         assertThat(list.delete(0), is(3));
         assertThat(list.get(0), is(2));
         assertThat(list.get(1), is(1));
@@ -42,9 +42,17 @@ public class SimpleArrayListTest {
     }
 
     @Test
-    public void whenDeleteSecondElementThenOneThree() {
+    public void whenDeleteSecondElementThenThreeOne() {
         assertThat(list.delete(1), is(2));
         assertThat(list.get(0), is(3));
+        assertThat(list.get(1), is(1));
+        assertNull(list.get(2));
+    }
+
+    @Test
+    public void whenDeleteFirstElementThenTwoOne2() {
+        assertThat(list.deleteFirst(), is(3));
+        assertThat(list.get(0), is(2));
         assertThat(list.get(1), is(1));
         assertNull(list.get(2));
     }

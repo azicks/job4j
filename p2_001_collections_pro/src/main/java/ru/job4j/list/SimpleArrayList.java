@@ -15,7 +15,7 @@ public class SimpleArrayList<E> {
     }
 
     /**
-     * Реализовать метод удаления первого элемент в списке.
+     * Метод удаления элемента по индексу.
      */
     public E delete(int index) {
         Node<E> result = this.first;
@@ -31,6 +31,17 @@ public class SimpleArrayList<E> {
             result = prev.next;
             prev.next = result.next;
         }
+        size--;
+        return result.data;
+    }
+
+    /**
+    *Метод получения элемента по индексу.
+    */
+     public E deleteFirst() {
+        Node<E> result = this.first;
+        this.first = result.next;
+        size--;
         return result.data;
     }
 
