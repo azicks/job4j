@@ -2,17 +2,19 @@ package ru.job4j.list;
 
 import org.junit.Test;
 import org.junit.Before;
+
+import java.util.Iterator;
+
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
-public class SimpleArrayListTest {
+public class SimpleLinkedListTest {
 
-    private SimpleArrayList<Integer> list;
+    private SimpleLinkedList<Integer> list;
 
     @Before
     public void beforeTest() {
-        list = new SimpleArrayList<>();
+        list = new SimpleLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -55,5 +57,15 @@ public class SimpleArrayListTest {
         assertThat(list.get(0), is(2));
         assertThat(list.get(1), is(1));
         assertNull(list.get(2));
+    }
+
+    @Test
+    public void whenIterateThen321() {
+        Iterator it = list.iterator();
+        assertTrue(it.hasNext());
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(1));
+        assertFalse(it.hasNext());
     }
 }

@@ -3,7 +3,6 @@ package ru.job4j.list;
 import org.junit.Test;
 import org.junit.Before;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class ArrListTest {

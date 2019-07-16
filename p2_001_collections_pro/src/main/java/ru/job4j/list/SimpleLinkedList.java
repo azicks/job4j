@@ -1,8 +1,13 @@
 package ru.job4j.list;
 
-public class SimpleArrayList<E> {
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+
+public class SimpleLinkedList<E> implements Iterable<E> {
     private int size;
+    private int modCount;
     private Node<E> first;
+
 
     /**
      * Метод вставляет в начало списка данные.
@@ -12,6 +17,7 @@ public class SimpleArrayList<E> {
         newLink.next = this.first;
         this.first = newLink;
         this.size++;
+        modCount++;
     }
 
     /**
@@ -32,6 +38,7 @@ public class SimpleArrayList<E> {
             prev.next = result.next;
         }
         size--;
+        modCount++;
         return result.data;
     }
 
@@ -42,6 +49,7 @@ public class SimpleArrayList<E> {
         Node<E> result = this.first;
         this.first = result.next;
         size--;
+        modCount++;
         return result.data;
     }
 
@@ -61,6 +69,30 @@ public class SimpleArrayList<E> {
      */
     public int getSize() {
         return this.size;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private int currentModCount = modCount;
+            private Node<E> current = first;
+
+            @Override
+            public boolean hasNext() {
+
+                return (!(current == null || current.next == null));
+            }
+
+            @Override
+            public E next() {
+                if (currentModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                E result = current.data;
+                current = current.next;
+                return result;
+            }
+        };
     }
 
     /**
