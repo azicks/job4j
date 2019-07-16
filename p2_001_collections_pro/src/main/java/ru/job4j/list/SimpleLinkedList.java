@@ -4,9 +4,9 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 public class SimpleLinkedList<E> implements Iterable<E> {
-    private int size;
-    private int modCount;
-    private Node<E> first;
+    protected int size;
+    protected int modCount;
+    protected Node<E> first;
 
 
     /**
@@ -98,7 +98,7 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     /**
      * Класс предназначен для хранения данных.
      */
-    private static class Node<E> {
+    protected static class Node<E> {
 
         E data;
         Node<E> next;
