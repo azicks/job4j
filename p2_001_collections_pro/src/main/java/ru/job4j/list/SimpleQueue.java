@@ -7,8 +7,7 @@ public class SimpleQueue<E> {
 
     public void push(E data) {
         int stack2size = stack2.getSize();
-        for (int i = 0; i != stack2size; i++)
-        {
+        for (int i = 0; i != stack2size; i++) {
             stack.push(stack2.poll());
         }
         stack.push(data);
