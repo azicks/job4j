@@ -68,4 +68,11 @@ public class SimpleLinkedListTest {
         assertThat(it.next(), is(1));
         assertFalse(it.hasNext());
     }
+
+    @Test
+    public void testCycle() {
+        assertFalse(list.hasCycle());
+        list.addCycle();
+        assertTrue(list.hasCycle());
+    }
 }

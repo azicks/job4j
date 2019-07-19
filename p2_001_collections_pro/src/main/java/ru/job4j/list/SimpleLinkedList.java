@@ -96,6 +96,41 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     }
 
     /**
+     * Для тестов
+     */
+
+    public void addCycle() {
+        first = new Node(1);
+        Node two = new Node(2);
+        Node third = new Node(3);
+        Node four = new Node(4);
+        Node five = new Node(5);
+        Node six = new Node(6);
+
+
+        first.next = two;
+        two.next = third;
+        third.next = four;
+        four.next = first;
+        five.next = six;
+
+        size = 6;
+
+    }
+
+    boolean hasCycle() {
+        boolean result = true;
+        Node<E> node = first;
+        for (int i = 0; i != size; i++) {
+            if (node.next == null) {
+                result = false;
+            }
+            node = node.next;
+        }
+        return result;
+    }
+
+    /**
      * Класс предназначен для хранения данных.
      */
     protected static class Node<E> {
@@ -107,4 +142,5 @@ public class SimpleLinkedList<E> implements Iterable<E> {
             this.data = data;
         }
     }
+
 }
