@@ -45,15 +45,6 @@ public class SimpleArrayTest {
     }
 
     @Test
-    public void whenNullArrayThenHasNextFalse() {
-        SimpleArray<Object> s = new SimpleArray<>(2);
-        assertFalse(s.iterator().hasNext());
-        s.add(null);
-        s.add(null);
-        assertFalse(s.iterator().hasNext());
-    }
-
-    @Test
     public void whenDeleteIndex2Then12456() {
         sa.remove(2);
         assertThat(sa.get(0), is(1));

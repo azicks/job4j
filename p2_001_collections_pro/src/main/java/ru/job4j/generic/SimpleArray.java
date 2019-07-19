@@ -35,27 +35,18 @@ public class SimpleArray<T> implements Iterable<T> {
         if (idx >= size) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        for (int i = idx; i < size - 1; i++) {
-            array[i] = array[i + 1];
-        }
+        System.arraycopy(array, idx + 1, array, idx, size - idx - 1);
         size--;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             private int iteratorIndex;
 
             @Override
             public boolean hasNext() {
-                boolean result = false;
-                for (int i = iteratorIndex; i < size; i++) {
-                    if (array[i] != null) {
-                        result = true;
-                        break;
-                    }
-                }
-                return result;
+                return iteratorIndex < size;
             }
 
             @Override
