@@ -23,10 +23,10 @@ public class SimpleStackTest {
     @Test
     public void whenAddThreeElementsThenPollFirstElementResultThreeThenPollSecondElementResultTwoAndThenCheckSizeOfCollectionResultIsOne() {
         assertThat(list.poll(), is(3));
+        assertThat(list.peek(), is(2));
         assertThat(list.poll(), is(2));
         assertThat(list.getSize(), is(1));
     }
-
 
     @Test
     public void whenIterateThen321() {
