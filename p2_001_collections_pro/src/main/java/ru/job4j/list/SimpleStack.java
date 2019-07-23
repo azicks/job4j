@@ -14,7 +14,11 @@ public class SimpleStack<E> implements Iterable<E> {
     }
 
     public E poll() {
-        return list.deleteFirst();
+        E result = null;
+        if (this.getSize() != 0) {
+            result = list.deleteFirst();
+        }
+        return result;
     }
 
     public E peek() {

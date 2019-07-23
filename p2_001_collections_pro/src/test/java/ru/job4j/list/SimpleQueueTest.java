@@ -27,6 +27,10 @@ public class SimpleQueueTest {
         assertThat(list.getSize(), is(1));
         assertThat(list.poll(), is(3));
         assertThat(list.getSize(), is(0));
+        list.push(4);
+        assertThat(list.getSize(), is(1));
+        assertThat(list.poll(), is(4));
+        assertThat(list.getSize(), is(0));
         assertNull(list.poll());
         assertThat(list.getSize(), is(0));
     }

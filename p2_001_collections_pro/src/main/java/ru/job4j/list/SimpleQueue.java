@@ -6,25 +6,20 @@ public class SimpleQueue<E> {
     private int size;
 
     public void push(E data) {
-        int stack2size = stack2.getSize();
-        for (int i = 0; i != stack2size; i++) {
-            stack.push(stack2.poll());
-        }
         stack.push(data);
         size++;
     }
 
     public E poll() {
-        E result = null;
-        if (size != 0) {
-            int stack1size = stack.getSize();
-            for (int i = 0; i != stack1size; i++) {
+        if (stack2.getSize() == 0) {
+            for (int i = 0; i != size; i++) {
                 stack2.push(stack.poll());
             }
-            size--;
-            result = stack2.poll();
         }
-        return result;
+        if (size != 0) {
+            size--;
+        }
+        return stack2.poll();
     }
 
     public int getSize() {
