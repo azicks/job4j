@@ -46,6 +46,17 @@ public class ArrList<E> implements Iterable<E> {
         return (E) container[index];
     }
 
+    public boolean contains(Object o) {
+        boolean result = false;
+        for (int i = 0; i != size; i++) {
+            if (container[i].equals(o)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
     private void checkSize() {
         if (container.length == size) {
             Object[] arr = new Object[size + size / 2];

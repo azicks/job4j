@@ -3,7 +3,7 @@ package ru.job4j.list;
 import org.junit.Test;
 import org.junit.Before;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class ArrListTest {
 
@@ -28,6 +28,17 @@ public class ArrListTest {
     @Test
     public void whenGetSecondThenTwo() {
         assertThat(list.get(1), is(2));
+    }
+
+    @Test
+    public void containsTest() {
+        ArrList<Integer> list = new ArrList<>();
+        Integer three = 3;
+        list.add(1);
+        list.add(2);
+        assertFalse(list.contains(three));
+        list.add(three);
+        assertTrue(list.contains(three));
     }
 
     /*    @Test
