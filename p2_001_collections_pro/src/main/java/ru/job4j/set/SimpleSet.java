@@ -23,4 +23,21 @@ public class SimpleSet<E> implements Iterable<E> {
     public int getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i != size; i++) {
+            E e = list.get(i);
+            if (e == null) {
+                str.append("null");
+            } else {
+                str.append(e.toString());
+            }
+            if (i != size - 1) {
+                str.append(" ");
+            }
+        }
+        return str.toString();
+    }
 }

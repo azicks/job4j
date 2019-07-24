@@ -14,11 +14,11 @@ public class SimpleSetTest {
         set.add(1);
         set.add(2);
         set.add(3);
+        set.add(null);
+        set.add(null);
         set.add(3);
-        assertThat(set.getSize(), is(3));
-        /*for (int i : set) {
-            System.out.println(i);
-        }*/
+        assertThat(set.getSize(), is(4));
+        assertThat(set.toString(), is("1 2 3 null"));
     }
 
 
