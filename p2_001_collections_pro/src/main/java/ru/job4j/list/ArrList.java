@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
@@ -48,10 +49,19 @@ public class ArrList<E> implements Iterable<E> {
 
     public boolean contains(Object o) {
         boolean result = false;
-        for (int i = 0; i != size; i++) {
-            if (container[i].equals(o)) {
-                result = true;
-                break;
+        if (o != null) {
+            for (int i = 0; i != size; i++) {
+                if (o.equals(container[i])) {
+                    result = true;
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i != size; i++) {
+                if (container[i] == null) {
+                    result = true;
+                    break;
+                }
             }
         }
         return result;
