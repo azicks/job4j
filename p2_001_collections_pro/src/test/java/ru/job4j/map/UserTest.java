@@ -15,9 +15,11 @@ public class UserTest {
         Map<User, Object> map = new HashMap<>();
         User u1 = new User("user", 1, new GregorianCalendar(1960, Calendar.MAY, 10));
         User u2 = new User("user", 1, new GregorianCalendar(1960, Calendar.MAY, 10));
-        map.put(u1, null);
-        map.put(u2, null);
-        //System.out.println(map);
+        map.put(u1, 1);
+        map.put(u2, 2);
+        System.out.println(u1.hashCode());
+        System.out.println(u2.hashCode());
+        System.out.println(map);
     }
 
 }
