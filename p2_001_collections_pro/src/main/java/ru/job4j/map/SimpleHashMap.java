@@ -43,7 +43,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
         boolean result = false;
         int hash = key.hashCode();
         int idx = indexFor(hash, capacity);
-        if (map[idx] != null) {
+        if (map[idx] != null && map[idx].getKey().equals(key)) {
             map[idx] = null;
             size--;
             modCount++;
