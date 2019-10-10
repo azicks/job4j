@@ -5,7 +5,7 @@ import java.util.*;
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     private Node<E> root;
     private int size;
-    private Queue<Node<E>> dt = new LinkedList<>();
+    private Queue<Node<E>> dt;
 
     public Tree(E rootValue) {
         this.root = new Node<>(rootValue);
@@ -41,34 +41,21 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return result;
     }
 
-    private void addAllChildren(Node<E> el) {
-        for (Node<E> child : el.leaves()) {
-            dt.offer(child);
-            addAllChildren(child);
-        }
-    }
-
     public boolean isBinary() {
-        return checkBinaryNode(root);
-    }
-
-    private boolean checkBinaryNode(Node<E> el) {
         boolean result = true;
-        int counter = 0;
-        for (Node<E> child : el.leaves()) {
-            if (counter++ == 2) {
+        for (Node<E> el : this) {
+            if (el.numChildren() > 2) {
                 result = false;
                 break;
             }
-            result = checkBinaryNode(child);
         }
         return result;
     }
 
     @Override
-    public Iterator<E> iterator() {
+    public Iterator<Node<E>> iterator() {
+        dt = new LinkedList<>();
         dt.offer(root);
-        addAllChildren(root);
         return new Iterator<>() {
             private int position;
 
@@ -78,9 +65,14 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             }
 
             @Override
-            public E next() {
+            public Node<E> next() {
                 position++;
-                return dt.poll().getValue();
+                final Node<E> result = dt.poll();
+
+                for (Node<E> child : result.leaves()) {
+                    dt.offer(child);
+                }
+                return result;
             }
         };
     }

@@ -32,8 +32,8 @@ public class TreeTest {
         tree.add(4, 5);
         tree.add(5, 6);
         StringBuilder result = new StringBuilder();
-        for (Integer el : tree) {
-            result.append(el);
+        for (Node<Integer> el : tree) {
+            result.append(el.getValue());
         }
         assertEquals(result.toString(), "123456");
     }
