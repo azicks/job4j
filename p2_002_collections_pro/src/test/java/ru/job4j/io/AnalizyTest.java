@@ -24,8 +24,8 @@ public class AnalizyTest {
             e.printStackTrace();
         }
 
-        assertEquals(data[0],"10:57:01;10:59:01");
-        assertEquals(data[1],"11:01:02;11:02:02");
+        assertEquals(data[0], "10:57:01;10:59:01");
+        assertEquals(data[1], "11:01:02;11:02:02");
         assertNull(data[2]);
 
     }
