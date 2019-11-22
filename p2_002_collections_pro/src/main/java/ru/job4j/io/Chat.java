@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Chat {
+    private class Commands {
+        final static String STOP = "стоп";
+        final static String CONTINUE = "продолжить";
+        final static String FINISH = "закончить";
+    }
     private List<String> phrases = new ArrayList<>();
     private boolean alive = true;
     private int size;
@@ -41,10 +46,10 @@ public class Chat {
             System.out.print("Вы: ");
             message = in.nextLine();
             log.println("Вы: " + message);
-            if (message.equals("стоп")) {
+            if (Commands.STOP.equals(message)) {
                 alive = false;
             }
-            if (message.equals("продолжить")) {
+            if (Commands.CONTINUE.equals(message)) {
                 alive = true;
             }
             if (alive) {
@@ -52,7 +57,7 @@ public class Chat {
                 System.out.println(answer);
                 log.println(answer);
             }
-        } while (!message.equals("закончить"));
+        } while (!Commands.FINISH.equals(message));
         log.close();
     }
 
