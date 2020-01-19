@@ -7,15 +7,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Search {
     List<File> files(String parent, List<String> exts) {
+        Predicate<File> p = (file) -> !file.isDirectory() && exts.contains(FilenameUtils.getExtension(file.getName()));
+        return this.files(parent, p);
+    }
+
+    List<File> files(String parent, Predicate<File> p) {
         List<File> result = new ArrayList<>();
         Queue<File> files = new LinkedList<>();
         files.offer(new File(parent));
         while (!files.isEmpty()) {
             File f = files.poll();
-            if (!f.isDirectory() && exts.contains(FilenameUtils.getExtension(f.getName()))) {
+            if (p.test(f)) {
                 result.add(f);
             }
             File[] children = f.listFiles();
