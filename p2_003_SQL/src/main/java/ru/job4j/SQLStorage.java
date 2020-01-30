@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 
 public class SQLStorage {
-    private static final Logger log = LogManager.getLogger(SQLStorage.class.getName());
+    private static final Logger LOG = LogManager.getLogger(SQLStorage.class.getName());
 
     public static void main(String[] args) {
         String url = "jdbc:postgresql://localhost:5432/db1";
@@ -21,13 +21,13 @@ public class SQLStorage {
                 System.out.println(rs.getString(2));
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    log.error(e.getMessage(), e);
+                    LOG.error(e.getMessage(), e);
                 }
             }
         }
