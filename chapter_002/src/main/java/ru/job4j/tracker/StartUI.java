@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 public class StartUI {
     private final Input input;
     private MenuTracker menu;
-    private final Tracker tracker;
+    private final ITracker tracker;
 
     StartUI(Input input, Consumer<String> output) {
         this.input = input;
@@ -17,7 +17,14 @@ public class StartUI {
         init();
     }
 
-    StartUI(Input input, Tracker tracker) {
+    StartUI(Input input, Consumer<String> output, ITracker tracker) {
+        this.input = input;
+        this.input.setOutput(output);
+        this.tracker = tracker;
+        init();
+    }
+
+    StartUI(Input input, ITracker tracker) {
         this.input = input;
         this.tracker = tracker;
         init();

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class MenuTracker {
     private Input input;
-    private Tracker tracker;
+    private ITracker tracker;
     private int selected = -1;
     private List<UserAction> actions = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class MenuTracker {
         return result;
     }
 
-    public MenuTracker(Tracker tracker, Input input) {
+    public MenuTracker(ITracker tracker, Input input) {
         this.tracker = tracker;
         this.input = input;
         this.fillActions();

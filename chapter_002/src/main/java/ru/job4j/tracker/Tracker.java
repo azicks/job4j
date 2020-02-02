@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * @since 10.12.2018
  */
-public class Tracker {
+public class Tracker implements ITracker {
     private final List<Item> items = new ArrayList<>();
     private static final Random RND = new Random();
 
