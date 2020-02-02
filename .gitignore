@@ -24,6 +24,6 @@ log.txt
 hs_err_pid*
 
 target
-resources
+#resources
 .idea
 *.iml
