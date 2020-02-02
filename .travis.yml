@@ -11,7 +11,6 @@ services:
 
 before_script:
   - psql -c 'create database tracker;' -U postgres
-  - psql -c 'ALTER USER postgres WITH PASSWORD 'iddqd';' -U postgres
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
