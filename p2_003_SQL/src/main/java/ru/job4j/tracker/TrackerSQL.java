@@ -11,19 +11,22 @@ import java.util.Properties;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
     private static final Logger LOG = LogManager.getLogger(TrackerSQL.class.getName());
+    private static final String PROPERTIES_FILE = "app.properties";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String URL = "url";
+    private static final String DB = "dbname";
+    private static final String DRIVER_CLASS_NAME = "driver-class-name";
+    private final Properties config = new Properties();
     private Connection connection;
 
     public boolean init() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
-            Properties config = new Properties();
-            config.load(in);
-            String dbName = config.getProperty("dbname");
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE)) {
+            this.config.load(in);
+            String dbName = this.config.getProperty(DB);
             boolean newDB = false;
-            Class.forName(config.getProperty("driver-class-name"));
-            this.connection = DriverManager.getConnection(
-                    config.getProperty("url"),
-                    config.getProperty("username"),
-                    config.getProperty("password"));
+            Class.forName(this.config.getProperty(DRIVER_CLASS_NAME));
+            this.connection = this.createConnection();
             if (!this.isDBExists(dbName)) {
                 this.createDB(dbName);
                 newDB = true;
@@ -34,11 +37,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 LOG.error(e.getMessage(), e);
                 throw new IllegalStateException(e);
             }
-            String url = String.format("%s%s", config.getProperty("url"), dbName);
-            this.connection = DriverManager.getConnection(
-                    url,
-                    config.getProperty("username"),
-                    config.getProperty("password"));
+            this.connection = this.createConnection(dbName);
             LOG.info(String.format("Connected to DB %s", dbName));
             if (newDB) {
                 this.createTable();
@@ -60,12 +59,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item add(Item item) {
         try (PreparedStatement pst = connection.prepareStatement(
-                "insert into items (name, description) values (?, ?) returning id")) {
+                "insert into items (name, description) values (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, item.getName());
             pst.setString(2, item.getDesc());
-            ResultSet insertedItem = pst.executeQuery();
+            pst.executeUpdate();
+            ResultSet insertedItem = pst.getGeneratedKeys();
             insertedItem.next();
-            int itemId = insertedItem.getInt(1);
+            int itemId = insertedItem.getInt("id");
             item.setId(Integer.toString(itemId));
         } catch (SQLException e) {
             LOG.error(e.getMessage());
@@ -166,6 +166,18 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             LOG.error(e.getMessage(), e);
         }
         return item;
+    }
+
+    private Connection createConnection(String dbname) throws SQLException {
+        String url = String.format("%s%s", this.config.getProperty(URL), dbname);
+        return DriverManager.getConnection(
+                url,
+                this.config.getProperty(USERNAME),
+                this.config.getProperty(PASSWORD));
+    }
+
+    private Connection createConnection() throws SQLException {
+        return this.createConnection("");
     }
 
     /**
