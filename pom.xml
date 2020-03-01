@@ -11,6 +11,10 @@
         <maven.compiler.source>12</maven.compiler.source>
         <maven.compiler.target>12</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <db.url>jdbc:postgresql://127.0.0.1:5432/tracker</db.url>
+        <db.username>postgres</db.username>
+        <db.password>iddqd</db.password>
+        <db.driver>org.postgresql.Driver</db.driver>
     </properties>
 
     <modules>

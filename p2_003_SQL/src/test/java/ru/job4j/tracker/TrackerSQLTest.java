@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class TrackerSQLTest {
@@ -17,10 +18,8 @@ public class TrackerSQLTest {
 
     @Before
     public void setTracker() {
-        TrackerSQL tr = new TrackerSQL();
-        if (tr.init()) {
-            this.tracker = tr;
-        }
+        TrackerSQL tr = new TrackerSQL(TrackerConnection.getRollbackConnection());
+        this.tracker = tr;
     }
 
     @After
@@ -43,24 +42,23 @@ public class TrackerSQLTest {
 
     @Test
     public void whenFindItemByNameThenTrackerHasSTwoItems() {
-        String suffix = String.valueOf(System.currentTimeMillis());
-        Item item1 = new Item("test1" + suffix, "testDescription", 123L);
+        Item item1 = new Item("test1", "testDescription", 123L);
         tracker.add(item1);
-        Item item2 = new Item("goal" + suffix, "testDescription", 124L);
+        Item item2 = new Item("goal", "testDescription", 124L);
         tracker.add(item2);
-        Item item3 = new Item("test2" + suffix, "testDescription", 125L);
+        Item item3 = new Item("test2", "testDescription", 125L);
         tracker.add(item3);
-        Item item4 = new Item("goal" + suffix, "testDescription", 126L);
+        Item item4 = new Item("goal", "testDescription", 126L);
         tracker.add(item4);
         List<Item> expected = new ArrayList<>();
         expected.add(item2);
         expected.add(item4);
-        assertThat(tracker.findByName("goal" + suffix), is(expected));
+        assertEquals(expected, tracker.findByName("goal"));
     }
 
     @Test
     public void whenReplaceItem2OnItem3ThenItem1Item3() {
-        String itemName = String.format("test_replace-%s", String.valueOf(System.currentTimeMillis()));
+        String itemName = "test_replace";
         Item item1 = new Item(itemName, "testDescription", 123L);
         tracker.add(item1);
         Item item2 = new Item(itemName, "testDescription", 124L);
@@ -76,7 +74,7 @@ public class TrackerSQLTest {
 
     @Test
     public void whenDeleteItem2ThenItem1Item3() {
-        String itemNmame = String.format("test_del-%s", String.valueOf(System.currentTimeMillis()));
+        String itemNmame = "test_del";
         Item item1 = new Item(itemNmame, "testDescription", 123L);
         tracker.add(item1);
         Item item2 = new Item(itemNmame, "testDescription", 124L);
