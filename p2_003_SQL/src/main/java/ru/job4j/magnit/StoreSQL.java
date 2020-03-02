@@ -23,6 +23,7 @@ public class StoreSQL implements AutoCloseable {
                 );
             }
             st.close();
+            rs.close();
             this.connection.setAutoCommit(false);
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -32,16 +33,17 @@ public class StoreSQL implements AutoCloseable {
     public void generate(int size) {
         if (size > 0) {
             try {
-                Statement st = this.connection.createStatement();
+                final Statement st = this.connection.createStatement();
                 st.executeUpdate("DELETE FROM accounts;");
                 st.close();
-                PreparedStatement pst = this.connection.prepareStatement(
+                final PreparedStatement pst = this.connection.prepareStatement(
                         "INSERT INTO accounts (name, description) VALUES ('name' || ?, 'description' || ?);");
                 for (int i = 1; i <= size; i++) {
                     pst.setInt(1, i);
                     pst.setInt(2, i);
-                    pst.executeUpdate();
+                    pst.addBatch();
                 }
+                pst.executeBatch();
                 this.connection.commit();
                 pst.close();
             } catch (SQLException e) {
@@ -67,6 +69,7 @@ public class StoreSQL implements AutoCloseable {
                         accounts.getString("description")
                 ));
             }
+            accounts.close();
             st.close();
         } catch (SQLException e) {
             throw new IllegalStateException(e);
